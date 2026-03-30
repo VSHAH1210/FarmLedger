@@ -1,11 +1,14 @@
-import { ScrollView, StyleSheet, Text, View, Alert } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 import SummaryCard from "../components/SummaryCard";
 import ActionButton from "../components/ActionButton";
 import FieldCard from "../components/FieldCard";
-import { summaryData, fieldsData } from "../data/mockData";
+import { useFarmData } from "../store/FarmDataContext";
 
 export default function HomeScreen() {
+  const { summary, fields } = useFarmData();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -13,30 +16,26 @@ export default function HomeScreen() {
         <Text style={styles.subtitle}>Farm financial overview</Text>
 
         <View style={styles.summarySection}>
-          <SummaryCard title="Revenue" value={summaryData.revenue} />
-          <SummaryCard title="Expenses" value={summaryData.expenses} />
-          <SummaryCard title="Profit" value={summaryData.profit} />
+          <SummaryCard title="Revenue" value={summary.revenue} />
+          <SummaryCard title="Expenses" value={summary.expenses} />
+          <SummaryCard title="Profit" value={summary.profit} />
         </View>
 
         <View style={styles.actionsRow}>
           <ActionButton
             label="Add Expense"
-            onPress={() =>
-              Alert.alert("Coming soon", "Add Expense screen will be next.")
-            }
+            onPress={() => router.push("/add-expense" as any)}
           />
           <View style={styles.spacer} />
           <ActionButton
             label="Add Revenue"
-            onPress={() =>
-              Alert.alert("Coming soon", "Add Revenue screen will be next.")
-            }
+            onPress={() => router.push("/add-revenue" as any)}
           />
         </View>
 
         <Text style={styles.sectionTitle}>Your Fields</Text>
 
-        {fieldsData.map((field) => (
+        {fields.map((field) => (
           <FieldCard
             key={field.id}
             name={field.name}
@@ -44,12 +43,7 @@ export default function HomeScreen() {
             revenue={field.revenue}
             expenses={field.expenses}
             profit={field.profit}
-            onPress={() =>
-              Alert.alert(
-                field.name,
-                "Field details screen will be added next.",
-              )
-            }
+            onPress={() => {}}
           />
         ))}
       </ScrollView>
