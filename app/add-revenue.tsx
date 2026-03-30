@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useFarmData } from "../store/FarmDataContext";
+import { Colors } from "../constants/colors";
 
 export default function AddRevenueScreen() {
   const { addRevenue } = useFarmData();
@@ -61,58 +62,69 @@ export default function AddRevenueScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Record new revenue</Text>
-        <Text style={styles.subtitle}>
-          Add crop income for a field to track profitability.
-        </Text>
-
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>Field Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="e.g. Field A"
-            value={fieldName}
-            onChangeText={setFieldName}
-          />
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.headerCard}>
+          <Text style={styles.title}>Add Revenue</Text>
+          <Text style={styles.subtitle}>
+            Record crop income and track how each field is performing.
+          </Text>
         </View>
 
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>Crop</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="e.g. Canola"
-            value={crop}
-            onChangeText={setCrop}
-          />
-        </View>
+        <View style={styles.formCard}>
+          <View style={styles.formGroup}>
+            <Text style={styles.label}>Field Name</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="e.g. Field A"
+              placeholderTextColor={Colors.textMuted}
+              value={fieldName}
+              onChangeText={setFieldName}
+            />
+          </View>
 
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>Revenue Amount</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="e.g. 12000"
-            keyboardType="numeric"
-            value={amount}
-            onChangeText={setAmount}
-          />
-        </View>
+          <View style={styles.formGroup}>
+            <Text style={styles.label}>Crop</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="e.g. Canola"
+              placeholderTextColor={Colors.textMuted}
+              value={crop}
+              onChangeText={setCrop}
+            />
+          </View>
 
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>Note (Optional)</Text>
-          <TextInput
-            style={[styles.input, styles.multilineInput]}
-            placeholder="Add any extra details"
-            multiline
-            numberOfLines={4}
-            value={note}
-            onChangeText={setNote}
-          />
-        </View>
+          <View style={styles.formGroup}>
+            <Text style={styles.label}>Revenue Amount</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="e.g. 12000"
+              placeholderTextColor={Colors.textMuted}
+              keyboardType="numeric"
+              value={amount}
+              onChangeText={setAmount}
+            />
+          </View>
 
-        <TouchableOpacity style={styles.button} onPress={handleSaveRevenue}>
-          <Text style={styles.buttonText}>Save Revenue</Text>
-        </TouchableOpacity>
+          <View style={styles.formGroup}>
+            <Text style={styles.label}>Note (Optional)</Text>
+            <TextInput
+              style={[styles.input, styles.multilineInput]}
+              placeholder="Add any extra details"
+              placeholderTextColor={Colors.textMuted}
+              multiline
+              numberOfLines={4}
+              value={note}
+              onChangeText={setNote}
+            />
+          </View>
+
+          <TouchableOpacity style={styles.button} onPress={handleSaveRevenue}>
+            <Text style={styles.buttonText}>Save Revenue</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -121,56 +133,69 @@ export default function AddRevenueScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#f3f4f6",
+    backgroundColor: Colors.background,
   },
   container: {
     padding: 20,
     paddingBottom: 40,
   },
+  headerCard: {
+    backgroundColor: Colors.primary,
+    borderRadius: 22,
+    padding: 22,
+    marginBottom: 20,
+  },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "800",
-    color: "#111827",
-    marginBottom: 6,
+    color: "#FFFFFF",
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 14,
-    color: "#6b7280",
-    marginBottom: 24,
+    color: "#E5F3E8",
+    lineHeight: 20,
+  },
+  formCard: {
+    backgroundColor: Colors.surface,
+    borderRadius: 20,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   formGroup: {
     marginBottom: 18,
   },
   label: {
     fontSize: 14,
-    fontWeight: "600",
-    color: "#374151",
+    fontWeight: "700",
+    color: Colors.text,
     marginBottom: 8,
   },
   input: {
-    backgroundColor: "#ffffff",
+    backgroundColor: Colors.surface,
     borderRadius: 14,
     paddingHorizontal: 14,
     paddingVertical: 14,
     fontSize: 16,
-    color: "#111827",
+    color: Colors.text,
     borderWidth: 1,
-    borderColor: "#e5e7eb",
+    borderColor: Colors.border,
   },
   multilineInput: {
     minHeight: 100,
     textAlignVertical: "top",
   },
   button: {
-    backgroundColor: "#2f6f3e",
-    borderRadius: 14,
+    backgroundColor: Colors.primary,
+    borderRadius: 16,
     paddingVertical: 16,
     alignItems: "center",
     marginTop: 8,
   },
   buttonText: {
-    color: "#ffffff",
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "800",
   },
 });

@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Colors } from "../constants/colors";
 
 type FieldCardProps = {
   name: string;
@@ -17,10 +18,22 @@ export default function FieldCard({
   profit,
   onPress,
 }: FieldCardProps) {
+  const isProfitPositive = profit >= 0;
+
   return (
     <Pressable style={styles.card} onPress={onPress}>
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.crop}>Crop: {crop}</Text>
+      <View style={styles.headerRow}>
+        <View>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.crop}>{crop}</Text>
+        </View>
+
+        <View style={styles.badge}>
+          <Text style={styles.badgeText}>Field</Text>
+        </View>
+      </View>
+
+      <View style={styles.divider} />
 
       <View style={styles.row}>
         <Text style={styles.label}>Revenue</Text>
@@ -34,7 +47,14 @@ export default function FieldCard({
 
       <View style={styles.row}>
         <Text style={styles.label}>Profit</Text>
-        <Text style={styles.profit}>${profit.toLocaleString()}</Text>
+        <Text
+          style={[
+            styles.profit,
+            { color: isProfitPositive ? Colors.profit : Colors.loss },
+          ]}
+        >
+          ${profit.toLocaleString()}
+        </Text>
       </View>
     </Pressable>
   );
@@ -42,44 +62,67 @@ export default function FieldCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#ffffff",
-    borderRadius: 16,
-    padding: 16,
+    backgroundColor: Colors.surface,
+    borderRadius: 18,
+    padding: 18,
     marginBottom: 14,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
+    borderWidth: 1,
+    borderColor: Colors.border,
+    shadowColor: Colors.shadow,
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
     elevation: 3,
+  },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   name: {
     fontSize: 18,
-    fontWeight: "700",
-    color: "#111827",
+    fontWeight: "800",
+    color: Colors.text,
     marginBottom: 4,
   },
   crop: {
     fontSize: 14,
-    color: "#6b7280",
-    marginBottom: 12,
+    color: Colors.textMuted,
+    fontWeight: "500",
+  },
+  badge: {
+    backgroundColor: Colors.surfaceSoft,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+  },
+  badgeText: {
+    color: Colors.primary,
+    fontSize: 12,
+    fontWeight: "700",
+  },
+  divider: {
+    height: 1,
+    backgroundColor: Colors.border,
+    marginVertical: 14,
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 8,
+    marginBottom: 10,
   },
   label: {
     fontSize: 14,
-    color: "#4b5563",
+    color: Colors.textMuted,
+    fontWeight: "500",
   },
   value: {
     fontSize: 14,
-    fontWeight: "600",
-    color: "#111827",
+    fontWeight: "700",
+    color: Colors.text,
   },
   profit: {
     fontSize: 14,
-    fontWeight: "700",
-    color: "#2f6f3e",
+    fontWeight: "800",
   },
 });

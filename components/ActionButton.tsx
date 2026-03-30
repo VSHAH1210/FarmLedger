@@ -1,4 +1,5 @@
 import { Pressable, Text, StyleSheet } from "react-native";
+import { Colors } from "../constants/colors";
 
 type ActionButtonProps = {
   label: string;
@@ -7,7 +8,10 @@ type ActionButtonProps = {
 
 export default function ActionButton({ label, onPress }: ActionButtonProps) {
   return (
-    <Pressable style={styles.button} onPress={onPress}>
+    <Pressable
+      style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+      onPress={onPress}
+    >
       <Text style={styles.text}>{label}</Text>
     </Pressable>
   );
@@ -16,14 +20,23 @@ export default function ActionButton({ label, onPress }: ActionButtonProps) {
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    backgroundColor: "#2f6f3e",
-    paddingVertical: 14,
-    borderRadius: 14,
+    backgroundColor: Colors.primary,
+    paddingVertical: 15,
+    borderRadius: 16,
     alignItems: "center",
+    justifyContent: "center",
+    shadowColor: Colors.shadow,
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 2,
+  },
+  buttonPressed: {
+    backgroundColor: Colors.primaryDark,
   },
   text: {
-    color: "#ffffff",
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
   },
 });

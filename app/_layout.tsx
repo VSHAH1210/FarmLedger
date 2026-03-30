@@ -16,7 +16,7 @@ export default function RootLayout() {
               fontWeight: "700",
             },
             contentStyle: {
-              backgroundColor: "#f3f4f6",
+              backgroundColor: "#F7F4EC",
             },
           }}
         >
